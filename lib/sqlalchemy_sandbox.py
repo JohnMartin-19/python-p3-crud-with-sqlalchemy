@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
 #use our eninges to configure sessions
 
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(bind= engine)
 #Using a session class to create a session object
 session = Session()
 
