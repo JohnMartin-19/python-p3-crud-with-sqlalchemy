@@ -49,3 +49,18 @@ Session = sessionmaker(bind= engine)
 #Using a session class to create a session object
 session = Session()
 
+#craeting a record
+john_mburu = Student(
+        name="John Mburu",
+        email="mburuuu@moringa.sch",
+        grade=6,
+        birthday=datetime(
+            year=2001,
+            month=6,
+            day=28
+        ),
+    )
+session.add(john_mburu)
+session.commit()
+
+print(f"New student ID is {john_mburu.id}.")
