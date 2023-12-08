@@ -60,7 +60,18 @@ john_mburu = Student(
             day=28
         ),
     )
-session.add(john_mburu)
+adrine_mhesh = Student(
+        name="Adrne Mhesh",
+        email="mhesh@moringa.sch",
+        grade=6,
+        birthday=datetime(
+            year=2000,
+            month=2,
+            day=2
+        ),
+    )
+session.bulk_save_objects([john_mburu,adrine_mhesh])
 session.commit()
 
 print(f"New student ID is {john_mburu.id}.")
+print(f"New student ID is {adrine_mhesh.id}.")
