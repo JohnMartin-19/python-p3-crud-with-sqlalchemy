@@ -21,8 +21,7 @@ class Student(Base):
             name='unique_email'),
         CheckConstraint(
             'grade BETWEEN 1 AND 12',
-            name='grade_between_1_and_12')
-    )
+            name='grade_between_1_and_12'))
 
     Index('index_name', 'name')
 
@@ -39,39 +38,34 @@ class Student(Base):
             + f"Grade {self.grade}"
 
 if __name__ == '__main__':
+
     engine = create_engine('sqlite:///:memory:')
     Base.metadata.create_all(engine)
-#creating sesisons
 
-#use our eninges to configure sessions
+    Session = sessionmaker(bind=engine)
+    session = Session()
 
-Session = sessionmaker(bind= engine)
-#Using a session class to create a session object
-session = Session()
+    albert_einstein = Student(
+        student_name="Albert Einstein",
+        student_email="albert.einstein@zurich.edu",
+        student_grade=6,
+        student_birthday=datetime(
+            year=1879,
+            month=3,
+            day=14
+        ),
+    )
 
-#craeting a record
-john_mburu = Student(
-        name="John Mburu",
-        email="mburuuu@moringa.sch",
-        grade=6,
-        birthday=datetime(
-            year=2001,
+    alan_turing = Student(
+        student_name="Alan Turing",
+        student_email="alan.turing@sherborne.edu",
+        student_grade=11,
+        student_birthday=datetime(
+            year=1912,
             month=6,
-            day=28
+            day=23
         ),
     )
-adrine_mhesh = Student(
-        name="Adrne Mhesh",
-        email="mhesh@moringa.sch",
-        grade=6,
-        birthday=datetime(
-            year=2000,
-            month=2,
-            day=2
-        ),
-    )
-session.bulk_save_objects([john_mburu,adrine_mhesh])
-session.commit()
 
-print(f"New student ID is {john_mburu.id}.")
-print(f"New student ID is {adrine_mhesh.id}.")
+    session.bulk_save_objects([albert_einstein, alan_turing])
+    session.commit()
